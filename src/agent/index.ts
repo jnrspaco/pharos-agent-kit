@@ -30,6 +30,8 @@ import {
   erc721Transfer,
   getTokenDataByTicker,
 } from "../tools";
+import { rwaYieldOptimizer } from "../tools/rwa_yield_optimizer";
+import type { YieldOptimizerResult } from "../tools/rwa_yield_optimizer";
 import { DEFILLAMA_NETWORK_MAPPING } from "../tools/defillama/constants";
 import { Config } from "../types";
 import { PharosWalletProvider, ViemWalletProvider } from "../wallet-providers";
@@ -223,6 +225,17 @@ export class PharosAgentKit {
     return erc721Mint(this, to, tokenAddress, tokenId);
   }
 
+  async rwaYieldOptimize(
+    walletAddress: Address,
+    reinvestBps = 10000,
+    vaultKeys?: Array<"PALPHA_HIGH_YIELD"|"ELFI_RWA_SUPPLY"|"MORPHO_RWA_VAULT">,
+    poolKey?: "PROS_USDC_V3"|"PROS_USDT_PMM"|"PROS_ETH_V2"|"USDC_USDT_PMM",
+    yieldTokenAddress?: Address,
+    previewOnly = false,
+    network: "ATLANTIC_TESTNET"|"PACIFIC_MAINNET" = "PACIFIC_MAINNET",
+  ): Promise<YieldOptimizerResult> {
+    return rwaYieldOptimizer(this, walletAddress, reinvestBps, vaultKeys, poolKey, yieldTokenAddress, previewOnly, network);
+  }
   async getTokenDataByTicker(
     ticker: string,
   ): Promise<any | undefined> {
