@@ -1,335 +1,155 @@
-<div align="center">
+# RWA Yield Optimizer & Reinvestment Skill
 
-# 🌟 Pharos Agent Kit
+> **Pharos Agent Center — Skill Builder Campaign Submission**
 
-![Pharos Agent Kit](pharos-agent-kit.png)
+## Overview
 
----
+The **RWA Yield Optimizer** chains 5 complex onchain steps into a single natural language agent intent — something no built-in Pharos Agent Center tool can do alone:
 
-### 🤖 Empowering AI Agents with Blockchain Capabilities 🔗
+| Step | Action | Built-in? |
+|------|--------|-----------|
+| 1 | **Multi-vault scan** — queries pAlpha, ELFi, Morpho simultaneously | No |
+| 2 | **Preview & forecast** — yield totals, APY rankings, projected gain, gas estimate | No |
+| 3 | **APY routing** — reads live FaroSwap pool data, auto-selects best destination | No |
+| 4 | **Parallel claim** — fires claimRewards() across all active vaults at once via SALI | No |
+| 5 | **Optimized reinvest** — approves + deposits into top-ranked FaroSwap pool | No |
 
-</div>
+## Natural Language Prompt
+Scan all my RealFi vault positions on Pharos, calculate total pending yield
+across pAlpha and ELFi, check current FaroSwap pool APYs, claim everything,
+and automatically reinvest 100% into the highest-yield pool.
+## Network Support
 
+| Network | Chain ID | RPC |
+|---------|----------|-----|
+| Pharos Pacific Mainnet | 1672 | https://rpc.pharosnetwork.xyz |
+| Pharos Atlantic Testnet | 688688 | https://rpc.atlanticocean.pharosnetwork.xyz |
 
-> 🚀 An open-source toolkit for connecting AI agents to Pharos protocols. Now, any agent, using any model can autonomously perform various Pharos actions:
+## Supported Protocols
 
+**RealFi Vaults:** pAlpha High Yield RWA Vault, ELFi RWA Supply Pool, Morpho RWA Vault
 
-### ✨ Key Features
+**FaroSwap Pools:** PROS/USDT PMM (~12.5% APY), PROS/USDC AMM v3 (~10%), PROS/ETH AMM v2 (~7.5%), USDC/USDT PMM (~12.5%)
 
-- 💰 Check ETH balance
-- 🔄 Check ERC20 token balances
-- 💸 Transfer ETH or ERC20 tokens
-- 📊 Get token pricing data
-- 📈 Fetch trending tokens
-- 📉 Monitor market movements
-- 🏦 Access DeFi protocols
-- 🎯 And more...
+FaroSwap is forked from DODO protocol with AMM v2, AMM v3 concentrated liquidity, and PMM pools.
 
+## Preview Mode Output
 
----
+Running with `previewOnly: true` produces this forecast without executing any transactions:
+╔═══════════════════════════════════════════════════════╗
+║  RWA YIELD OPTIMIZER — PREVIEW (no txs sent)          ║
+╚═══════════════════════════════════════════════════════╝
+── Vault scan ──────────────────────────────────────────
+• pAlpha     pAlpha High Yield RWA Vault     Pending:     120.5000 PROS  APR: 9.20%
+• ELFi       ELFi RWA Supply Pool            Pending:      45.2500 PROS  APR: 7.50%
+• Morpho     Morpho RWA Vault                Pending:       0.0000 PROS  APR: 0.00%
+TOTAL: 165.750000 PROS
+── Best pool (FaroSwap) ────────────────────────────────
+🥇 FaroSwap PROS/USDT PMM — 12.50% APY [PMM] ← AUTO-SELECTED
+── Split ───────────────────────────────────────────────
+Reinvest: 165.750000 PROS → FaroSwap PROS/USDT PMM
+Keep:       0.000000 PROS  (stays in wallet)
+── Projections ─────────────────────────────────────────
+Annual gain: 20.7188 PROS at 12.50% APY
+Est. gas:    ~0.00000192 ETH
+ℹ️  Set previewOnly=false to execute.
+## Execution Output
 
-> 🌐 Anyone - whether an SF-based AI researcher or a crypto-native builder - can bring their AI agents trained with any model and seamlessly integrate with Pharos blockchain.
-
-
-## 🔧 Core Blockchain Features
-
-### 💎 Token Operations
-
-- 💳 Check ERC20 token balances
-- 💱 Transfer ERC20 tokens
-
-
-### 📊 Market Data Integration
-
-- 🦎 CoinGecko Pro API integration
-- ⚡ Real-time token price data
-- 📈 Trending tokens and pools
-- 🚀 Top gainers analysis
-- 🔍 Token information lookup
-
-
-### 🏦 DeFi Data Access
-
-- 📊 Protocol TVL tracking with DeFiLlama
-- 💹 Price feeds and aggregation
-- 📉 Token trading data
-
-
-### 🌐 Social Data
-
-- 🤖 Elfa AI social media insights
-- 📊 Trending tokens by social activity
-- 📱 Smart mentions tracking
-- 👥 Social account analysis
-
-
-## 🤖 AI Integration Features
-
-### 🔗 LangChain Integration
-
-- 🛠️ Ready-to-use LangChain tools for blockchain operations
-- 🎯 DynamicStructuredTool-based implementation
-- ✅ Zod schema validation
-- 🛡️ Comprehensive error handling
-
-
-### 🚀 Vercel AI SDK Integration
-
-- 🔌 Vercel AI SDK for AI agent integration
-- 🌐 Framework agnostic support
-- ⚡ Quick and easy toolkit setup
-
-
-### 📡 MCP Integration
-
-- 🤝 Support for the Model Context Protocol
-- 🏗️ Action-based architecture
-- 📝 Structured schema definitions
-
-
-### 🎨 AI Tools
-
-- 🎨 DALL-E integration for image generation
-- 🗣️ Natural language processing for blockchain commands
-- 📊 Price feed integration for market analysis
-
-
-## 📦 Installation
+Running with `previewOnly: false` claims and reinvests:
+✅ RWA Yield Optimizer Complete — Pharos Pacific Mainnet
+💰 Claimed: 165.75 PROS from 2 vault(s)
+🎯 Best Pool: FaroSwap PROS/USDT PMM (12.50% APY)
+🔄 Reinvested: 165.75 PROS → FaroSwap PROS/USDT PMM
+🏦 Kept: 0 PROS in wallet
+📈 Projected Annual Gain: 20.7188 PROS
+## Installation
 
 ```bash
-npm install pharos-agent-kit
+git clone https://github.com/YOUR_USERNAME/pharos-agent-kit.git
+cd pharos-agent-kit
+npm install --legacy-peer-deps
 ```
 
-## 🚀 Quick Start
+## Usage
+
+### Preview first (zero gas)
 
 ```typescript
-import { PharosAgentKit, createPharosTools } from "pharos-agent-kit";
-
-// Initialize with private key and optional RPC URL
-const agent = new PharosAgentKit(
-  "your-wallet-private-key",
-  "https://rpc-url.example.com",
-  { OPENAI_API_KEY: "your-openai-api-key" } // optional config
+const result = await agent.rwaYieldOptimize(
+  "0xYourWallet",
+  10000,        // 100% reinvest
+  undefined,    // all vaults
+  undefined,    // auto-select best pool
+  undefined,    // default PROS token
+  true,         // previewOnly — no txs
+  "ATLANTIC_TESTNET"
 );
-
-// Create LangChain tools
-const tools = createPharosTools(agent);
+console.log(result.preview.previewNote);
 ```
 
-## 📚 Usage Examples
-
-### 💰 Check ERC20 Token Balance
+### Full auto-compound
 
 ```typescript
-const balance = await agent.getBalance("0x1234567890123456789012345678901234567890");
-console.log("Token Balance:", balance);
-```
-
-### 💸 Transfer ERC20 Tokens
-
-```typescript
-const txHash = await agent.transfer(
-  "0x1234567890123456789012345678901234567890", // to address
-  1.5, // amount
-  "0xabcdef1234567890abcdef1234567890abcdef12" // token address (optional for native token)
+const result = await agent.rwaYieldOptimize(
+  "0xYourWallet",
+  10000,        // 100% compound
+  undefined,    // all vaults
+  undefined,    // auto best pool
+  undefined,    // PROS token
+  false,        // EXECUTE
+  "PACIFIC_MAINNET"
 );
-console.log("Transfer Transaction:", txHash);
+console.log(result.finalSummary);
 ```
 
-
-### 📊 Get Token Price Data from CoinGecko
+### 50/50 split — specific vault and pool
 
 ```typescript
-const priceData = await agent.getTokenPriceDataUsingCoingecko(
-  "0x1234567890123456789012345678901234567890", // Token address
-  "0xabcdef1234567890abcdef1234567890abcdef12" // Another token address
+const result = await agent.rwaYieldOptimize(
+  "0xYourWallet",
+  5000,                    // 50% reinvest
+  ["PALPHA_HIGH_YIELD"],   // pAlpha only
+  "PROS_USDC_V3",          // force PROS/USDC v3
+  undefined,
+  false,
+  "PACIFIC_MAINNET"
 );
-console.log("Token prices:", priceData);
 ```
 
-### 📈 Get Trending Tokens
+## Parameters
 
-```typescript
-const trendingTokens = await agent.getTrendingTokens();
-console.log("Trending tokens:", trendingTokens);
-```
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| walletAddress | Address | required | Wallet to scan and claim for |
+| reinvestBps | number | 10000 | Basis points to reinvest (0–10000) |
+| vaultKeys | string[] | all | Which vaults to scan |
+| poolKey | string | auto | Force a specific FaroSwap pool |
+| yieldTokenAddress | Address | PROS | Override yield token |
+| previewOnly | boolean | false | Forecast without executing |
+| network | string | PACIFIC_MAINNET | Target network |
 
-### 📊 Get Protocol TVL from DeFiLlama
+**reinvestBps guide:** 0 = keep all, 2500 = 25%, 5000 = 50/50, 10000 = full compound
 
-```typescript
-const tvl = await agent.fetchProtocolTvl("uniswap");
-console.log("Uniswap TVL:", tvl);
-```
+## Supported Frameworks
 
-### 🛠️ Creating a New Tool
+- Claude Code
+- LangChain
+- Vercel AI SDK
+- OpenClaw
+- MCP
+- Codex
 
-Here's a complete example of creating a new tool in Pharos Agent Kit:
+## Dependencies
 
-#### 1️⃣ Create the Tool
+- viem — blockchain interactions
+- pharos-agent-kit — base agent kit
+- zod — schema validation
+- @langchain/core — LangChain tool interface
 
-**`src/tools/my_tool/my_function.ts`**:
-```typescript
-import { PharosAgentKit } from "../../agent";
-import { Address } from "viem";
+## Notes
 
-/**
- * Description of what your tool does
- * @param agent - PharosAgentKit instance
- * @param param1 - Description of first parameter
- * @param param2 - Description of second parameter
- * @returns Promise resolving to the result
- */
-export async function my_function(
-  agent: PharosAgentKit,
-  param1: string,
-  param2?: Address,
-): Promise<any> {
-  // Implementation of your tool
-  // Use agent.connection, agent.wallet, etc. to interact with blockchain
-  
-  return result;
-}
-```
+Contract addresses in `src/constants/pharos.ts` are documented placeholders. Replace with live addresses from [pharosscan.xyz](https://pharosscan.xyz) once available. The APY ranking model uses on-chain reserve data with pool-type weighting (PMM ~12.5%, V3 ~10%, V2 ~7.5%).
 
-**`src/tools/my_tool/index.ts`**:
-```typescript
-export * from "./my_function";
-```
+## License
 
-#### 2️⃣ Create a LangChain Tool
-
-**`src/langchain/my_tool/my_tool.ts`**:
-```typescript
-import { Tool } from "langchain/tools";
-import { PharosAgentKit } from "../../agent";
-
-export class MyTool extends Tool {
-  name = "my_tool_name";
-  description = `Description of what your tool does.
-  
-  Inputs (JSON string):
-    - param1: string, description (required)
-    - param2: string, description (optional)`;
-
-  constructor(private agent: PharosAgentKit) {
-    super();
-  }
-
-  protected async _call(input: string): Promise<string> {
-    try {
-      const parsedInput = JSON.parse(input);
-      const { param1, param2 } = parsedInput;
-      
-      if (!param1) {
-        throw new Error("param1 is required.");
-      }
-      
-      const result = await this.agent.myFunction(param1, param2);
-      
-      return JSON.stringify({ status: "success", data: result });
-    } catch (error: any) {
-      return JSON.stringify({
-        status: "error",
-        message: error.message,
-      });
-    }
-  }
-}
-```
-
-#### 3️⃣ Create an Action
-
-**`src/actions/my_tool/my_action.ts`**:
-```typescript
-import { Action } from "../../types/action";
-import { PharosAgentKit } from "../../agent";
-import { z } from "zod";
-
-export const myAction: Action = {
-  name: "MY_ACTION",
-  similes: ["my action", "perform my action", "do my action"],
-  description: "Description of what your action does.",
-  examples: [
-    [
-      {
-        input: { param1: "value1", param2: "value2" },
-        output: { 
-          status: "success", 
-          data: { result: "example result" },
-          message: "Action completed successfully" 
-        },
-        explanation: "Explanation of what this example demonstrates.",
-      },
-    ],
-  ],
-  schema: z.object({
-    param1: z.string().describe("Description of param1"),
-    param2: z.string().optional().describe("Description of param2"),
-  }),
-  handler: async (agent: PharosAgentKit, input: Record<string, any>) => {
-    const { param1, param2 } = input;
-    
-    const result = await agent.myFunction(param1, param2);
-    
-    return {
-      status: "success",
-      data: result,
-      message: "Action completed successfully",
-    };
-  },
-};
-```
-
-#### 4️⃣ Add to Agent
-
-**`src/agent/index.ts`**:
-```typescript
-import { my_function } from "../tools";
-
-export class PharosAgentKit {
-  // Existing properties and methods...
-  
-  async myFunction(param1: string, param2?: Address): Promise<any> {
-    return my_function(this, param1, param2);
-  }
-}
-```
----
-## ⭐ Acknowledgments
-
-🌟 Special thanks to the Solana Agent Kit team for their pioneering work in blockchain agent development. Their innovative approach has been a significant source of inspiration for this project. While we've developed our own unique implementation for the Pharos ecosystem, their groundbreaking work helped shape our vision.
-
-## 🙏 Credits
-
-We extend our heartfelt gratitude to:
-
-- 👥 Our amazing community of contributors
-- 🔧 Open-source maintainers of our dependencies
-- 🚀 Early adopters and testers
-- 💡 Everyone who provided valuable feedback and suggestions
-
-Your support and contributions have been instrumental in making this project better.
-
----
-
-## 📚 Dependencies
-
-The toolkit relies on several key libraries:
-
-- 🔧 viem for blockchain interactions
-- 🤖 @langchain/core for AI agent tools
-- ✅ zod for schema validation
-- 🦎 CoinGecko API for market data
-
-## 👥 Contributing
-
-🤝 Contributions are welcome! Please feel free to submit a Pull Request.
-Refer to [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute to this project.
-
-## 📄 License
-
-Apache-2 License
-
-## 🔒 Security
-
-🛡️ This toolkit handles private keys and transactions. Always ensure you're using it in a secure environment and never share your private keys.
+MIT
